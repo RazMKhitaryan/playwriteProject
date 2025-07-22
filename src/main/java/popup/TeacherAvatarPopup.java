@@ -5,7 +5,6 @@ import com.microsoft.playwright.Page;
 import pages.AbsBasePage;
 
 public class TeacherAvatarPopup extends AbsBasePage<TeacherAvatarPopup> {
-  Locator xButton = page.locator("//*[@id=\"__PORTAL__\"]/div/div/div/button");
   Locator leftIcon = page.locator("//*[@id=\"__PORTAL__\"]/div/div/div/div/div[2]/button[1]");
   Locator rightIcon = page.locator("//*[@id=\"__PORTAL__\"]/div/div/div/div/div[2]/button[2]");
   Locator teacherNames = page.locator("xpath=//*[@id='__PORTAL__']/div/div/div/div/div[1]/div/div/div/div/h3");
@@ -14,16 +13,14 @@ public class TeacherAvatarPopup extends AbsBasePage<TeacherAvatarPopup> {
     super(page);
   }
 
-  public void clickXButton() {
-    click(xButton);
-  }
-
-  public void clickLeftIcon() {
+  public TeacherAvatarPopup clickLeftIcon() {
     click(leftIcon);
+    return this;
   }
 
-  public void clickRightIcon() {
+  public TeacherAvatarPopup clickRightIcon() {
     click(rightIcon);
+    return this;
   }
 
   public String getTeacherName(int index) {

@@ -2,9 +2,9 @@ package pages;
 
 import annotations.Path;
 import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Mouse;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.BoundingBox;
-import com.microsoft.playwright.options.Position;
 import com.microsoft.playwright.options.WaitForSelectorState;
 
 public abstract class AbsBasePage<T> {
@@ -40,6 +40,10 @@ public abstract class AbsBasePage<T> {
     locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
   }
 
+  public void implicitWait() {
+    page.waitForTimeout(5000);
+
+  }
   public String getText(Locator locator) {
     locator.scrollIntoViewIfNeeded();
     waitForVisibility(locator);
@@ -58,15 +62,23 @@ public abstract class AbsBasePage<T> {
     return locator.isChecked();
   }
 
-  public static void moveSliderHandleOnly(Locator slider, int targetValue) {
-    BoundingBox sliderBox = slider.boundingBox();
-    if (sliderBox == null) throw new RuntimeException("Cannot get slider bounding box");
-
-    double offsetX = 0;
-    double offsetY = sliderBox.height / 2;
-
-    slider.dragTo(slider, new Locator.DragToOptions()
-        .setTargetPosition(new Position((int) offsetX, (int) offsetY)));
+  public void moveSliderHandleOnly(Locator slider, int moveByX) {
+    waitForVisibility(slider);
+    slider.scrollIntoViewIfNeeded();
+    BoundingBox box = slider.boundingBox();
+    page.mouse().move(box.x + box.width / 2, box.y + box.height / 2);
+    page.mouse().down();
+    page.mouse().move(box.x + box.width / 2 + moveByX, box.y + box.height / 2, new Mouse.MoveOptions().setSteps(5));
+    page.mouse().up();
   }
 
+  public Page getPage() {
+    return page;
+  }
+
+  public boolean isLocatorVisible(Locator locator) {
+    waitForVisibility(locator);
+    locator.scrollIntoViewIfNeeded();
+    return locator.isVisible();
+  }
 }

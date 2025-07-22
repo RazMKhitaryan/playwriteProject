@@ -17,10 +17,11 @@ public class ClickHousePage extends AbsBasePage<ClickHousePage> {
     super(page);
   }
 
-  public void checkTeachers() {
+  public ClickHousePage checkTeachers() {
     waitForVisibility(teacher1);
     teacher1.scrollIntoViewIfNeeded();
     assertTrue(teacher1.isVisible(), "Teacher is not visible");
+    return this;
   }
 
   public List<String> scrollTeachers() {
@@ -31,7 +32,8 @@ public class ClickHousePage extends AbsBasePage<ClickHousePage> {
     return List.of(sourceTeacher, toTeacher);
   }
 
-  public void clickTeacher() {
+  public ClickHousePage clickTeacher() {
     click(teacher1);
+    return this;
   }
 }

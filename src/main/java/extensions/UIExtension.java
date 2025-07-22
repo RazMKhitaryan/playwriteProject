@@ -21,8 +21,7 @@ public class UIExtension implements BeforeEachCallback, AfterEachCallback, Befor
 
   @Override
   public void beforeEach(ExtensionContext context) {
-    this.browserContext = browser.newContext(new Browser.NewContextOptions()
-        .setViewportSize(null));
+    this.browserContext = browser.newContext(new Browser.NewContextOptions().setViewportSize(null));
     this.browserContext.tracing().start(new Tracing.StartOptions().setSnapshots(true).setSources(true).setScreenshots(true));
     this.page = browserContext.newPage();
     Guice.createInjector(new GuicePageModule(page)).injectMembers(context.getTestInstance().get());
@@ -35,8 +34,9 @@ public class UIExtension implements BeforeEachCallback, AfterEachCallback, Befor
 
   @Override
   public void afterEach(ExtensionContext context) {
-    this.browserContext.tracing().stop(new Tracing.StopOptions().setPath(new File("./trace.zip ").toPath()));
     this.page.close();
+    this.browserContext.tracing().stop(new Tracing.StopOptions().setPath(new File("./trace.zip ").toPath()));
     this.browserContext.close();
+
   }
 }
