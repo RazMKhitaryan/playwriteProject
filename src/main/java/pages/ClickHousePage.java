@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import annotations.Path;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
-import com.microsoft.playwright.options.WaitForSelectorState;
 import java.util.List;
 
 @Path("/lessons/clickhouse")
@@ -19,21 +18,20 @@ public class ClickHousePage extends AbsBasePage<ClickHousePage> {
   }
 
   public void checkTeachers() {
-    teacher1.waitFor();
+    waitForVisibility(teacher1);
     teacher1.scrollIntoViewIfNeeded();
     assertTrue(teacher1.isVisible(), "Teacher is not visible");
   }
 
   public List<String> scrollTeachers() {
-    teacher1.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
-    String sourceTeacher = teacher1.textContent();
-    String toTeacher = teacher4.textContent();
+    String sourceTeacher = getText(teacher1);
+    String toTeacher = getText(teacher4);
     teacher1.dragTo(teacher4);
-    assertNotEquals(sourceTeacher, teacher1.textContent(), "the drag and drop were not worked");
+    assertNotEquals(sourceTeacher, getText(teacher1), "the drag and drop were not worked");
     return List.of(sourceTeacher, toTeacher);
   }
 
   public void clickTeacher() {
-    teacher1.click();
+    click(teacher1);
   }
 }

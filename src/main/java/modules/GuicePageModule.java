@@ -5,7 +5,7 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.microsoft.playwright.Page;
 import pages.ClickHousePage;
-import pages.MainPage;
+import pages.CoursesPage;
 import popup.TeacherAvatarPopup;
 
 public class GuicePageModule extends AbstractModule {
@@ -13,12 +13,6 @@ public class GuicePageModule extends AbstractModule {
 
   public GuicePageModule(Page page) {
     this.page = page;
-  }
-
-  @Provides
-  @Singleton
-  public MainPage provideMainPage() {
-    return new MainPage(page);
   }
 
   @Provides
@@ -31,5 +25,11 @@ public class GuicePageModule extends AbstractModule {
   @Singleton
   private TeacherAvatarPopup getTeacherAvatarPopup() {
     return new TeacherAvatarPopup(page);
+  }
+
+  @Provides
+  @Singleton
+  public CoursesPage getCoursesPage() {
+    return new CoursesPage(page);
   }
 }
