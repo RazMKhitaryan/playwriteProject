@@ -78,8 +78,4 @@ public abstract class AbsBasePage<T> {
     locator.scrollIntoViewIfNeeded();
     return locator.isVisible();
   }
-  @SuppressWarnings("EI_EXPOSE_REP2")
-  public void setPage(Page newPage) {
-    this.page = newPage;
-  }
 }

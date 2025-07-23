@@ -2,6 +2,7 @@ package pages;
 
 import annotations.Path;
 import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
 
 @Path("/custom_courses")
 public class CustomCourses extends AbsBasePage<CustomCourses> {
@@ -12,12 +13,12 @@ public class CustomCourses extends AbsBasePage<CustomCourses> {
     developmentSection = page.locator("a.tn-atom[href='https://otus.ru/categories/programming']");
   }
 
-  public boolean isCustomCoursesPageOpened() {
+  public boolean isCustomCoursesPageOpened(Page page) {
     page.waitForLoadState();
     return page.url().contains("custom_courses");
   }
 
-  public void clickDevelopmentSection() {
+  public void clickDevelopmentSection(Page page) {
     page.waitForLoadState();
     developmentSection = page.locator("a.tn-atom[href='https://otus.ru/categories/programming']");
     developmentSection.scrollIntoViewIfNeeded();

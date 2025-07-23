@@ -14,10 +14,9 @@ public class CompanyServices extends AbsBasePage<CompanyServices> {
   }
 
   public Page clickMoreInfo() {
-    Page newTab = page.waitForPopup(() -> {
-      click(moreInfo);
-    });
+    Page newTab = page.waitForPopup(() -> click(moreInfo));
     newTab.waitForLoadState();
+    this.page = newTab;
     return newTab;
   }
 }

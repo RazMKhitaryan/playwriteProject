@@ -85,13 +85,11 @@ public class HomeworkTest {
     SoftAssertions softAssertions = new SoftAssertions();
     Page page = companyServices.open()
         .clickMoreInfo();
-    customCourses.setPage(page);
-    softAssertions.assertThat(customCourses.isCustomCoursesPageOpened())
+    softAssertions.assertThat(customCourses.isCustomCoursesPageOpened(page))
         .as("the custom courses page were not opened")
         .isTrue();
-    customCourses.clickDevelopmentSection();
-    coursesPage.setPage(page);
-    softAssertions.assertThat(coursesPage.isDevelopmentCourseSelected())
+    customCourses.clickDevelopmentSection(page);
+    softAssertions.assertThat(coursesPage.isDevelopmentCourseSelected(page))
         .as("the development course was not selected")
         .isTrue();
     softAssertions.assertAll();

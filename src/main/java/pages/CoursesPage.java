@@ -2,6 +2,7 @@ package pages;
 
 import annotations.Path;
 import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class CoursesPage extends AbsBasePage<CoursesPage> {
     return isLocatorChecked(difficultyLevel);
   }
 
-  public boolean isDevelopmentCourseSelected() {
+  public boolean isDevelopmentCourseSelected(Page page) {
     page.waitForLoadState();
     developmentCourse = page.locator("xpath=/html/body/div[1]/div[1]/main/div/section[1]/div[1]/div[2]/div/div/div[2]/div/input");
     return isLocatorChecked(developmentCourse);
