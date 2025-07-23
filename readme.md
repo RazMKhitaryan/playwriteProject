@@ -48,5 +48,5 @@ Follow the steps below to execute the project:
    **Run Tests**
    Run the test suite using Maven's `surefire` plugin:
    ```bash
-   mvn clean test
+   mvn clean test -DthreadsCount=4
    ```

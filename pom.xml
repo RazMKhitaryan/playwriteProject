@@ -22,6 +22,7 @@
         <guava.version>32.1.2-jre</guava.version>
         <assertj.version>3.27.3</assertj.version>
         <jsoup.version>1.18.3</jsoup.version>
+        <threadCount>4</threadCount>
 
     </properties>
 
@@ -94,12 +95,24 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.version}</version>
                 <configuration>
+                    <includes>
+                        <include>**/HomeworkTest.java</include>
+                    </includes>
                     <systemPropertyVariables>
                         <browser>chrome</browser>
                         <baseUrl>https://otus.ru</baseUrl>
+                        <junit.jupiter.execution.parallel.enabled>true</junit.jupiter.execution.parallel.enabled>
+                        <junit.jupiter.execution.parallel.mode.default>concurrent
+                        </junit.jupiter.execution.parallel.mode.default>
+                        <junit.jupiter.execution.parallel.mode.classes.default>concurrent
+                        </junit.jupiter.execution.parallel.mode.classes.default>
                     </systemPropertyVariables>
                     <parallel>methods</parallel>
                     <threadCount>${threadCount}</threadCount>
+                    <perCoreThreadCount>false</perCoreThreadCount>
+                    <useUnlimitedThreads>false</useUnlimitedThreads>
+                    <reuseForks>true</reuseForks>
+                    <forkCount>1</forkCount>
                 </configuration>
             </plugin>
             <plugin>
