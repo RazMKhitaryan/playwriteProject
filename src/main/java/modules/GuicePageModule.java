@@ -9,10 +9,6 @@ import popup.TeacherAvatarPopup;
 
 public class GuicePageModule extends AbstractModule {
 
-  public GuicePageModule() {
-
-  }
-
   @Provides
   @Singleton
   public ClickHousePage getClickHousePage() {
