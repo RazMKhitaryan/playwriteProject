@@ -1,16 +1,19 @@
 package popup;
 
 import com.microsoft.playwright.Locator;
-import com.microsoft.playwright.Page;
 import pages.AbsBasePage;
 
 public class TeacherAvatarPopup extends AbsBasePage<TeacherAvatarPopup> {
-  Locator leftIcon = page.locator("//*[@id=\"__PORTAL__\"]/div/div/div/div/div[2]/button[1]");
-  Locator rightIcon = page.locator("//*[@id=\"__PORTAL__\"]/div/div/div/div/div[2]/button[2]");
-  Locator teacherNames = page.locator("xpath=//*[@id='__PORTAL__']/div/div/div/div/div[1]/div/div/div/div/h3");
+  Locator leftIcon;
+  Locator rightIcon;
+  Locator teacherNames;
 
-  public TeacherAvatarPopup(Page page) {
-    super(page);
+  public TeacherAvatarPopup() {
+    super();
+    leftIcon = page.locator("//*[@id=\"__PORTAL__\"]/div/div/div/div/div[2]/button[1]");
+    rightIcon = page.locator("//*[@id=\"__PORTAL__\"]/div/div/div/div/div[2]/button[2]");
+    teacherNames = page.locator("xpath=//*[@id='__PORTAL__']/div/div/div/div/div[1]/div/div/div/div/h3");
+
   }
 
   public TeacherAvatarPopup clickLeftIcon() {

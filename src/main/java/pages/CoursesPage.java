@@ -2,21 +2,28 @@ package pages;
 
 import annotations.Path;
 import com.microsoft.playwright.Locator;
-import com.microsoft.playwright.Page;
 import java.util.ArrayList;
 import java.util.List;
 
 @Path("/catalog/courses")
 public class CoursesPage extends AbsBasePage<CoursesPage> {
-  Locator allCoursesCheckbox = page.locator("xpath=/html/body/div[1]/div[1]/main/div/section[1]/div[1]/div[2]/div/div/div[1]/div/input");
-  Locator difficultyLevel = page.locator("xpath=/html/body/div[1]/div[1]/main/div/section[1]/div[2]/div[2]/div/div/div[1]/div/input");
-  Locator resetFilter = page.locator("//*[@id=\"__next\"]/div[1]/main/div/section[1]/button");
-  Locator slider = page.locator("div[role='slider']");
-  Locator coursesDates = page.locator("//*[@id=\"__next\"]/div[1]/main/div/section[2]/div[2]/div/a/div[2]/div/div");
-  Locator developmentCourse = page.locator("xpath=/html/body/div[1]/div[1]/main/div/section[1]/div[1]/div[2]/div/div/div[2]/div/input");
-  Locator architecture = page.getByText("Архитектура");
-  public CoursesPage(Page page) {
-    super(page);
+  Locator allCoursesCheckbox;
+  Locator difficultyLevel;
+  Locator resetFilter;
+  Locator slider;
+  Locator coursesDates;
+  Locator developmentCourse;
+  Locator architecture;
+
+  public CoursesPage() {
+    super();
+    allCoursesCheckbox = page.locator("xpath=/html/body/div[1]/div[1]/main/div/section[1]/div[1]/div[2]/div/div/div[1]/div/input");
+    difficultyLevel = page.locator("xpath=/html/body/div[1]/div[1]/main/div/section[1]/div[2]/div[2]/div/div/div[1]/div/input");
+    resetFilter = page.locator("//*[@id=\"__next\"]/div[1]/main/div/section[1]/button");
+    slider = page.locator("div[role='slider']");
+    coursesDates = page.locator("//*[@id=\"__next\"]/div[1]/main/div/section[2]/div[2]/div/a/div[2]/div/div");
+    developmentCourse = page.locator("xpath=/html/body/div[1]/div[1]/main/div/section[1]/div[1]/div[2]/div/div/div[2]/div/input");
+    architecture = page.getByText("Архитектура");
   }
 
   public boolean isAllCoursesCheckboxSelected() {
@@ -28,6 +35,8 @@ public class CoursesPage extends AbsBasePage<CoursesPage> {
   }
 
   public boolean isDevelopmentCourseSelected() {
+    page.waitForLoadState();
+    developmentCourse = page.locator("xpath=/html/body/div[1]/div[1]/main/div/section[1]/div[1]/div[2]/div/div/div[2]/div/input");
     return isLocatorChecked(developmentCourse);
   }
 

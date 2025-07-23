@@ -5,16 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import annotations.Path;
 import com.microsoft.playwright.Locator;
-import com.microsoft.playwright.Page;
 import java.util.List;
 
 @Path("/lessons/clickhouse")
 public class ClickHousePage extends AbsBasePage<ClickHousePage> {
-  Locator teacher1 = page.locator("//*[@id=\"__next\"]/div[1]/main/div/div[9]/section/div/div[2]/div[1]/div/div/div[1]/p[1]");
-  Locator teacher4 = page.locator("//*[@id=\"__next\"]/div[1]/main/div/div[9]/section/div/div[2]/div[1]/div/div/div[4]/p[1]");
+  Locator teacher1;
+  Locator teacher4;
 
-  public ClickHousePage(Page page) {
-    super(page);
+  public ClickHousePage() {
+    super();
+    teacher1 = page.locator("//*[@id=\"__next\"]/div[1]/main/div/div[9]/section/div/div[2]/div[1]/div/div/div[1]/p[1]");
+    teacher4 = page.locator("//*[@id=\"__next\"]/div[1]/main/div/div[9]/section/div/div[2]/div[1]/div/div/div[4]/p[1]");
   }
 
   public ClickHousePage checkTeachers() {

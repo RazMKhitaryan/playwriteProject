@@ -2,20 +2,24 @@ package pages;
 
 import annotations.Path;
 import com.microsoft.playwright.Locator;
-import com.microsoft.playwright.Page;
 import java.util.Random;
 
 @Path("/subscription")
 public class SubscriptionPage extends AbsBasePage<SubscriptionPage> {
-  Locator buySubscription = page.locator("xpath=/html/body/div[1]/div[1]/main/section[2]/div/div/div[1]/div/div[2]/button");
-  Locator moreInfo = page.locator("xpath=/html/body/div[1]/div[1]/main/section[2]/div/div[2]/div[2]/div/div[2]/button");
+  private final Locator buySubscription;
+  private final Locator moreInfo;
+  private final Random random;
 
-  public SubscriptionPage(Page page) {
-    super(page);
+  public SubscriptionPage() {
+    super();
+    this.buySubscription = page.locator("xpath=/html/body/div[1]/div[1]/main/section[2]/div/div/div[1]/div/div[2]/button");
+    this.moreInfo = page.locator("xpath=/html/body/div[1]/div[1]/main/section[2]/div/div[2]/div[2]/div/div[2]/button");
+    this.random = new Random();
   }
 
   public SubscriptionPage clickBuySubscription() {
-    click(buySubscription.nth(new Random().nextInt(3)));
+    Locator nth = buySubscription.nth(random.nextInt(3)); // Reuse `random` here
+    click(nth);
     return this;
   }
 

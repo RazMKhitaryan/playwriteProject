@@ -83,15 +83,15 @@ public class HomeworkTest {
   @Test
   public void companyServicesTest() {
     SoftAssertions softAssertions = new SoftAssertions();
-    CustomCourses customCourses = companyServices.open()
+    Page page = companyServices.open()
         .clickMoreInfo();
+    customCourses.setPage(page);
     softAssertions.assertThat(customCourses.isCustomCoursesPageOpened())
         .as("the custom courses page were not opened")
         .isTrue();
     customCourses.clickDevelopmentSection();
-    Page page = customCourses.getPage();
-    page.waitForLoadState();
-    softAssertions.assertThat(new CoursesPage(page).isDevelopmentCourseSelected())
+    coursesPage.setPage(page);
+    softAssertions.assertThat(coursesPage.isDevelopmentCourseSelected())
         .as("the development course was not selected")
         .isTrue();
     softAssertions.assertAll();

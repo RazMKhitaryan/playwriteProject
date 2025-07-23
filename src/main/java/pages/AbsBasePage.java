@@ -6,13 +6,14 @@ import com.microsoft.playwright.Mouse;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.BoundingBox;
 import com.microsoft.playwright.options.WaitForSelectorState;
+import extensions.UIExtension;
 
 public abstract class AbsBasePage<T> {
   protected Page page;
   private String baseUrl = System.getProperty("base.url", "https://otus.ru");
 
-  public AbsBasePage(Page page) {
-    this.page = page;
+  public AbsBasePage() {
+    this.page = UIExtension.PAGE.get();
   }
 
   public T open() {
@@ -72,13 +73,13 @@ public abstract class AbsBasePage<T> {
     page.mouse().up();
   }
 
-  public Page getPage() {
-    return page;
-  }
-
   public boolean isLocatorVisible(Locator locator) {
     waitForVisibility(locator);
     locator.scrollIntoViewIfNeeded();
     return locator.isVisible();
+  }
+  @SuppressWarnings("EI_EXPOSE_REP2")
+  public void setPage(Page newPage) {
+    this.page = newPage;
   }
 }

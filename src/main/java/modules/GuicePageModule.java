@@ -3,57 +3,55 @@ package modules;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import com.microsoft.playwright.Page;
 import pages.*;
 import popup.LoginPopup;
 import popup.TeacherAvatarPopup;
 
 public class GuicePageModule extends AbstractModule {
-  private Page page;
 
-  public GuicePageModule(Page page) {
-    this.page = page;
+  public GuicePageModule() {
+
   }
 
   @Provides
   @Singleton
   public ClickHousePage getClickHousePage() {
-    return new ClickHousePage(page);
+    return new ClickHousePage();
   }
 
   @Provides
   @Singleton
   private TeacherAvatarPopup getTeacherAvatarPopup() {
-    return new TeacherAvatarPopup(page);
+    return new TeacherAvatarPopup();
   }
 
   @Provides
   @Singleton
   public CoursesPage getCoursesPage() {
-    return new CoursesPage(page);
+    return new CoursesPage();
   }
 
   @Provides
   @Singleton
   public CompanyServices getCompanyServices() {
-    return new CompanyServices(page);
+    return new CompanyServices();
   }
 
   @Provides
   @Singleton
   public CustomCourses getCustomCourses() {
-    return new CustomCourses(page);
+    return new CustomCourses();
   }
 
   @Provides
   @Singleton
   public SubscriptionPage subscriptionPage() {
-    return new SubscriptionPage(page);
+    return new SubscriptionPage();
   }
 
   @Provides
   @Singleton
   public LoginPopup getLoginPopup() {
-    return new LoginPopup(page);
+    return new LoginPopup();
   }
 }

@@ -11,7 +11,7 @@ public class UIExtension implements BeforeEachCallback, AfterEachCallback, Befor
   private Playwright playwright;
   private Browser browser;
   private BrowserContext browserContext;
-  private Page page;
+  public static final ThreadLocal<Page> PAGE = new ThreadLocal<>();
 
   @Override
   public void beforeAll(ExtensionContext context) {
@@ -23,8 +23,9 @@ public class UIExtension implements BeforeEachCallback, AfterEachCallback, Befor
   public void beforeEach(ExtensionContext context) {
     this.browserContext = browser.newContext(new Browser.NewContextOptions().setViewportSize(null));
     this.browserContext.tracing().start(new Tracing.StartOptions().setSnapshots(true).setSources(true).setScreenshots(true));
-    this.page = browserContext.newPage();
-    Guice.createInjector(new GuicePageModule(page)).injectMembers(context.getTestInstance().get());
+    Page page = browserContext.newPage();
+    PAGE.set(page);
+    Guice.createInjector(new GuicePageModule()).injectMembers(context.getTestInstance().get());
   }
 
   @Override
@@ -34,9 +35,10 @@ public class UIExtension implements BeforeEachCallback, AfterEachCallback, Befor
 
   @Override
   public void afterEach(ExtensionContext context) {
-    this.page.close();
+    PAGE.get().close();
     this.browserContext.tracing().stop(new Tracing.StopOptions().setPath(new File("./trace.zip ").toPath()));
     this.browserContext.close();
-
+    PAGE.remove();
   }
+
 }
