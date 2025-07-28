@@ -12,7 +12,7 @@ public class SubscriptionPage extends AbsBasePage<SubscriptionPage> {
 
   public SubscriptionPage() {
     super();
-    this.buySubscription = page.locator("xpath=/html/body/div[1]/div[1]/main/section[2]/div/div/div[1]/div/div[2]/button");
+    this.buySubscription = page.getByText("Купить");
     this.moreInfo = page.locator("xpath=/html/body/div[1]/div[1]/main/section[2]/div/div[2]/div[2]/div/div[2]/button");
     this.random = new Random();
   }

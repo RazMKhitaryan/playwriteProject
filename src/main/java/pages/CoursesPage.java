@@ -3,32 +3,33 @@ package pages;
 import annotations.Path;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
 import java.util.ArrayList;
 import java.util.List;
 
 @Path("/catalog/courses")
 public class CoursesPage extends AbsBasePage<CoursesPage> {
-  Locator allCoursesCheckbox;
   Locator difficultyLevel;
   Locator resetFilter;
   Locator slider;
   Locator coursesDates;
   Locator developmentCourse;
   Locator architecture;
+  Locator checkbox;
 
   public CoursesPage() {
     super();
-    allCoursesCheckbox = page.locator("xpath=/html/body/div[1]/div[1]/main/div/section[1]/div[1]/div[2]/div/div/div[1]/div/input");
-    difficultyLevel = page.locator("xpath=/html/body/div[1]/div[1]/main/div/section[1]/div[2]/div[2]/div/div/div[1]/div/input");
-    resetFilter = page.locator("//*[@id=\"__next\"]/div[1]/main/div/section[1]/button");
+    checkbox = page.getByRole(AriaRole.CHECKBOX);
+    difficultyLevel = page.getByRole(AriaRole.CHECKBOX, new Page.GetByRoleOptions().setName("Любой уровень"));
+    developmentCourse = page.getByRole(AriaRole.CHECKBOX, new Page.GetByRoleOptions().setName("Программирование"));
+    resetFilter = page.getByText("Очистить фильтры");
     slider = page.locator("div[role='slider']");
     coursesDates = page.locator("//*[@id=\"__next\"]/div[1]/main/div/section[2]/div[2]/div/a/div[2]/div/div");
-    developmentCourse = page.locator("xpath=/html/body/div[1]/div[1]/main/div/section[1]/div[1]/div[2]/div/div/div[2]/div/input");
     architecture = page.getByText("Архитектура");
   }
 
   public boolean isAllCoursesCheckboxSelected() {
-    return isLocatorChecked(allCoursesCheckbox);
+    return isLocatorChecked(checkbox.nth(0));
   }
 
   public boolean isDifficultyLevelSelected() {
@@ -37,7 +38,7 @@ public class CoursesPage extends AbsBasePage<CoursesPage> {
 
   public boolean isDevelopmentCourseSelected(Page page) {
     page.waitForLoadState();
-    developmentCourse = page.locator("xpath=/html/body/div[1]/div[1]/main/div/section[1]/div[1]/div[2]/div/div/div[2]/div/input");
+    developmentCourse = page.getByRole(AriaRole.CHECKBOX, new Page.GetByRoleOptions().setName("Программирование"));
     return isLocatorChecked(developmentCourse);
   }
 

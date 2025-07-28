@@ -10,7 +10,7 @@ public class CompanyServices extends AbsBasePage<CompanyServices> {
 
   public CompanyServices() {
     super();
-    moreInfo = page.locator("//*[@id=\"__next\"]/div[1]/main/div[9]/div/div/a/button");
+    moreInfo = page.getByText("Подробнее");
   }
 
   public Page clickMoreInfo() {

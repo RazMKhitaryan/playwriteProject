@@ -3,6 +3,7 @@ package pages;
 import annotations.Path;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
 
 @Path("/custom_courses")
 public class CustomCourses extends AbsBasePage<CustomCourses> {

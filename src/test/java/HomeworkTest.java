@@ -37,17 +37,21 @@ public class HomeworkTest {
   @Test
   public void teachersCarouselVerification() {
     SoftAssertions softAssertions = new SoftAssertions();
-    List<String> teachers = clickHousePage.open().checkTeachers().scrollTeachers();
+    List<String> teachers = clickHousePage.open()
+        .checkTeachers()
+        .scrollTeachers();
     clickHousePage.clickTeacher();
     String teacherName = teacherAvatarPopup.getTeacherName(2);
     softAssertions.assertThat(teachers.get(1))
         .as("The right teacher page was not opened")
         .contains(teacherName);
-    String teacherName1 = teacherAvatarPopup.clickLeftIcon().getTeacherName(0);
+    String teacherName1 = teacherAvatarPopup.clickLeftIcon()
+        .getTeacherName(0);
     softAssertions.assertThat(teacherName1)
         .as("The left icon was not clicked")
         .isNotEqualTo(teacherName);
-    String teacherName2 = teacherAvatarPopup.clickRightIcon().getTeacherName(0);
+    String teacherName2 = teacherAvatarPopup.clickRightIcon()
+        .getTeacherName(0);
     softAssertions.assertThat(teacherName2)
         .as("The right icon was not clicked")
         .isNotEqualTo(teacherName);
@@ -73,10 +77,17 @@ public class HomeworkTest {
           assertThat(duration).isBetween(3, 10);
         });
     String coursesInfo = coursesPage.getCoursesInfo(0);
-    String coursesInfoAfter = coursesPage.clickArchitecture().getCoursesInfo(0);
-    softAssertions.assertThat(coursesInfoAfter.equalsIgnoreCase(coursesInfo)).as("architecture not selected").isFalse();
-    String coursesInfoAfterReset = coursesPage.resetFilter().getCoursesInfo(0);
-    softAssertions.assertThat(coursesInfoAfter.equalsIgnoreCase(coursesInfoAfterReset)).as("reset is not working").isFalse();
+    String coursesInfoAfter = coursesPage.clickArchitecture()
+        .getCoursesInfo(0);
+    softAssertions.assertThat(coursesInfoAfter
+        .equalsIgnoreCase(coursesInfo))
+        .as("architecture not selected")
+        .isFalse();
+    String coursesInfoAfterReset = coursesPage.resetFilter()
+        .getCoursesInfo(0);
+    softAssertions.assertThat(coursesInfoAfter.equalsIgnoreCase(coursesInfoAfterReset))
+        .as("reset is not working")
+        .isFalse();
     softAssertions.assertAll();
   }
 
@@ -101,14 +112,17 @@ public class HomeworkTest {
     String infoText = subscriptionPage.open()
         .clickMoreInfo()
         .getInfoText();
-    softAssertions.assertThat(infoText.equalsIgnoreCase("Свернуть")).as("the Свернуть text is wrong").isTrue();
+    softAssertions.assertThat(infoText.equalsIgnoreCase("Свернуть"))
+        .as("the Свернуть text is wrong")
+        .isTrue();
     softAssertions.assertThat(subscriptionPage.clickMoreInfo()
             .getInfoText()
             .equalsIgnoreCase("Подробнее"))
         .as("the Подробнее text is wrong")
         .isTrue();
     subscriptionPage.clickBuySubscription();
-    softAssertions.assertThat(loginPopup.isClickXButtonVisible()).as("the login page is not opened").isTrue();
+    softAssertions.assertThat(loginPopup.isClickXButtonVisible())
+        .as("the login page is not opened").isTrue();
     softAssertions.assertAll();
   }
 }
